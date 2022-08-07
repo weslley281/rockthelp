@@ -13,12 +13,13 @@ import { SignOut, Signpost } from 'phosphor-react-native';
 import { useState } from 'react';
 import Logo from '../assets/logo_secondary.svg';
 import { Filter } from '../components/Filter';
+import { Order, OrderProps } from '../components/Order';
 
 export function Home() {
   const [statusSelected, setStatusSelected] = useState<'open' | 'closed'>(
     'open'
   );
-  const [orders, setOrders] = useState([
+  const [orders, setOrders] = useState<OrderProps[]>([
     {
       id: '123',
       patrimony: '848464',
@@ -51,7 +52,9 @@ export function Home() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Heading color="gray.100">Meus Chamados</Heading>
+          <Heading color="gray.100" mb={3}>
+            Meus Chamados
+          </Heading>
           <Text color="gray.200">3</Text>
         </HStack>
 
@@ -73,7 +76,7 @@ export function Home() {
         <FlatList
           data={orders}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Text color="white">{item.status}</Text>}
+          renderItem={({ item }) => <Order data={item} />}
         />
       </VStack>
     </VStack>
